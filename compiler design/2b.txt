@@ -1,0 +1,18 @@
+%{
+#include<stdio.h>
+int s=0;
+%}
+
+%%
+"and"|"or"|"not"|"neither" {s=1;}
+%%
+
+void main()
+{
+printf("Enter the sentence\n");
+yylex();
+if(s==1)
+printf("Compound\n");
+else
+printf("Simple\n");
+}

@@ -1,0 +1,17 @@
+%{
+#include<stdio.h>
+int ch=0,wd=0,sp=0,li=0;
+%}
+
+%%
+[\n] {li++,ch++,wd++;}
+[ \t\n] {sp++,wd++,ch++;}
+[a-z 0-9] {ch++;}
+%%
+
+void main()
+{
+yyin=fopen("t.txt","r");
+yylex();
+printf("No of words=%d\nNo of Characters=%d\nNo of Spaces=%d\nNo of lines=%d\n",wd,ch,sp,li);
+}

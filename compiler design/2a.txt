@@ -1,0 +1,23 @@
+%{
+#include<stdio.h>
+int op=0,br=0,id=0;
+%}
+
+%%
+[+] {op++;}
+[-] {op++;}
+[*] {op++;}
+[/] {op++;}
+[a-z A-Z 0-9] {id++;}
+[(] {br++;}
+[)]  {br--;}
+%%
+
+int main()
+{
+printf("Enter an expression\n");
+yylex();
+printf("Operator=%d\nIdentifier=%d\nBraces=%d\n",op,id,br);
+return 0;
+}
+

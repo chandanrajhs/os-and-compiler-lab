@@ -1,0 +1,35 @@
+%{
+#include<stdio.h>
+#include<stdlib.h>
+%}
+
+%token LET DIG
+
+%%
+stmt : id{printf("Valid Identifier\n");}
+       ;
+id : letter next
+   | letter{;}
+   ;
+next : letter next
+     | digit next
+     | letter{;}
+     | digit{;}
+     ;
+letter : LET{;}
+       ;
+digit : DIG{;}
+      ;
+%%
+
+int main()
+{
+printf("Enter identifier\n");
+yyparse();
+}
+
+int yyerror()
+{
+printf("Not valid\n");
+exit(0);
+}

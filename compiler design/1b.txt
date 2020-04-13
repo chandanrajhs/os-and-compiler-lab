@@ -1,0 +1,17 @@
+%{
+#include<stdio.h>
+int com=0;
+%}
+
+%%
+"/*"[a-z A-Z 0-9 \n]*"*/" {com++; fprintf(yyout,"");}
+%%
+
+int main()
+{
+printf("Enter a c program\n");
+yyout=fopen("output","w");
+yylex();
+printf("Comment=%d\n",com);
+return 0;
+}
