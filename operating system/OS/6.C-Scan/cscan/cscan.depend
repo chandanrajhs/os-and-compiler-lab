@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1593088804 source:c:\users\hp\desktop\os\6.c-scan\cscan\main.c
+	<stdio.h>
+	<stdlib.h>
+

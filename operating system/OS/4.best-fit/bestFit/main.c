@@ -10,33 +10,26 @@ int m,n,p[100];
 
 void bestfit(int pn,int request)
 {
-int i,j,k,flag=0,small,sid,temp[100];
-for(i=0,k=0;i<m;i++)
- {
-    if(seg[i].size >= request && seg[i].allocation==0)
+int i,flag=0,sid,min=999;
+for(i=1;i<=m;i++)
+{
+    if(seg[i].size>=request && seg[i].size<min)
     {
-        temp[k]=i;
-        k++;
+        min=seg[i].size;
         flag=1;
+        sid=seg[i].id;
     }
 }
 if(flag==0)
 {
-    printf("Requested memory %d is not allocated\n\n\n",request);
-    return ;
+    printf("The process %d having size %d could not be allocated to any memory blocks\n",pn,request);
 }
-small=seg[temp[0]].size;
-sid=temp[0];
-for(j=1;j<k;j++)
+else
 {
-    if(seg[temp[j]].size<small)
-    {
-        small=seg[temp[j]].size;
-        sid=temp[j];
-    }
+    printf("The process %d having size %d was successfully allocated to memory block %d having size %d\n\n",pn,request,sid,seg[sid].size);
+    seg[sid].size=seg[sid].size-request;
+    seg[sid].allocation=1;
 }
-printf("process size %d is allocated to memory block %d\n\n\n",request,small);
-seg[sid].allocation=1;
 }
 
 void main()
@@ -44,19 +37,34 @@ void main()
 int i;
 printf("enter the no of memory segments\n");
 scanf("%d",&m);
-for(i=0;i<m;i++)
+for(i=1;i<=m;i++)
 {
-printf("enter the memory block sizes\n");
+printf("enter the memory block %d's size\n",i);
 scanf("%d",&seg[i].size);
 seg[i].id=i;
 seg[i].allocation=0;
 }
-printf("enter the no of processes\n");
-scanf("%d",&n);
-for(i=0;i<n;i++)
+printf("the memory block sizes are\n");
+for(i=1;i<=m;i++)
 {
-printf("enter the requesting size of process %d\n",i+1);
+    printf("%d ",seg[i].size);
+}
+printf("\n\nenter the no of processes\n");
+scanf("%d",&n);
+for(i=1;i<=n;i++)
+{
+printf("enter the requesting size of process %d\n",i);
 scanf("%d",&p[i]);
 bestfit(i,p[i]);
+}
+printf("\nThe allocation array is\n");
+for(i=1;i<=m;i++)
+{
+    printf("%d ",seg[i].allocation);
+}
+printf("\nThe remaining memory block sizes are\n ");
+for(i=1;i<=m;i++)
+{
+    printf("%d ",seg[i].size);
 }
 }
